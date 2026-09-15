@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="NEW_YW_logo_ALT2.png">
+<link rel="icon" type="image/webp" href="NEW_YW_logo_ALT2.webp">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="no-logo-background">
@@ -15,18 +15,23 @@
 <nav class="topnav">
 	<div class="wrap">
 		<div class="topnav-logos">
-			<a class="topnav-brand" href="index.html#crew">
-				<img src="NOVE_YW_zluta.png" alt="YUNG WONDERS">
+			<a class="topnav-brand" href="index.html">
+				<img src="yung_trans.webp" alt="YUNG" width="1798" height="718" decoding="async">
 			</a>
-			<a class="topnav-yung" href="index.html#header">
-				<img src="yung_trans.png" alt="YUNG">
+			<a class="topnav-yw" href="yw.html">
+				<img src="NOVE_YW_zluta.webp" alt="YUNG WONDERS" width="1274" height="589" decoding="async">
 			</a>
 		</div>
-		<div class="topnav-links">
-			<a href="#album">Album</a>
-			<a href="index.html">Yung</a>
-			<a href="yw.html">Bio</a>
-		</div>
+		<details class="topnav-menu">
+			<summary>Menu</summary>
+			<div class="topnav-links">
+				<a href="index.html#portfolio">Portfolio</a>
+				<a href="index.html#sluzby">Služby</a>
+				<a href="index.html#kontakt">Kontakt</a>
+				<a href="yw.html#identita">YW Bio</a>
+				<a href="newalbum.html#album">YW Tape</a>
+			</div>
+		</details>
 	</div>
 </nav>
 
@@ -48,13 +53,49 @@
 		<span class="secret-track track-dirty-wonders">DIRTY WONDERS</span>
 	</div>
 	<figure class="secret-cover">
-		<img src="COVER_YWTAPE.png" alt="Obal alba YW TAPE">
+		<a href="https://youtu.be/dQw4w9WgXcQ?si=kz6qMoxIb705uLNq" target="_blank" rel="noopener noreferrer"><img src="COVER_YWTAPE.webp" alt="Obal alba YW TAPE" fetchpriority="high" decoding="async"></a>
 	</figure>
 </main>
 
-<footer>© 2026. YW TAPE by YUNG WONDERS.</footer>
+<footer>© 2026 YW TAPE by YUNG WONDERS</footer>
 
 <script>
+	const topnavMenu = document.querySelector('.topnav-menu');
+
+	if (topnavMenu) {
+		let topnavCloseTimer;
+
+		topnavMenu.addEventListener('pointerenter', (event) => {
+			if (event.pointerType === 'mouse') {
+				clearTimeout(topnavCloseTimer);
+				topnavMenu.open = true;
+			}
+		});
+		topnavMenu.addEventListener('pointerleave', (event) => {
+			if (event.pointerType === 'mouse') {
+				topnavCloseTimer = setTimeout(() => {
+					topnavMenu.open = false;
+				}, 220);
+			}
+		});
+	}
+
+	document.querySelectorAll('a[href]').forEach((link) => {
+		link.addEventListener('click', (event) => {
+			const url = new URL(link.href, window.location.href);
+			const isInternal = url.origin === window.location.origin;
+			const isNewTab = link.target === '_blank';
+
+			if (isInternal && !isNewTab) {
+				event.preventDefault();
+				document.body.classList.add('page-leave');
+				window.setTimeout(() => {
+					window.location.href = url.href;
+				}, 260);
+			}
+		});
+	});
+
   const album = document.querySelector('.secret-album');
 
   if (album) {
