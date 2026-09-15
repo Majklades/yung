@@ -97,7 +97,7 @@
 				</article>
 				<article class="member member-yung">
 					<figure class="member-photo"><a href="https://www.instagram.com/yungmajkl/" target="_blank" rel="noopener noreferrer"><img src="yung.webp" alt="yung" loading="lazy" decoding="async"></a></figure>
-					<div><h3>yung</h3><p>Producent, beatmaker, audio engineer a zakládající člen. Vytváří prostředí, ve kterém ostatní fungují, a zároveň dělá své vlastní světy.</p></div>
+					<div><a href="index.html"><h3>yung</h3></a><p>Producent, beatmaker, audio engineer a zakládající člen. Vytváří prostředí, ve kterém ostatní fungují, a zároveň dělá své vlastní světy.</p></div>
 				</article>
 			</div>
 
@@ -247,11 +247,7 @@
 			const isNewTab = link.target === '_blank';
 
 			if (isInternal && !isNewTab) {
-				event.preventDefault();
-				document.body.classList.add('page-leave');
-				window.setTimeout(() => {
-					window.location.href = url.href;
-				}, 260);
+				return;
 			}
 		});
 	});

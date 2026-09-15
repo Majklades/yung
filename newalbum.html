@@ -87,11 +87,7 @@
 			const isNewTab = link.target === '_blank';
 
 			if (isInternal && !isNewTab) {
-				event.preventDefault();
-				document.body.classList.add('page-leave');
-				window.setTimeout(() => {
-					window.location.href = url.href;
-				}, 260);
+				return;
 			}
 		});
 	});
