@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YW TAPE — YUNG WONDERS</title>
+<script src="theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bowlby+One+SC&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Lato:wght@400;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/webp" href="NEW_YW_logo_ALT2.webp">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -22,16 +23,22 @@
 				<img src="NOVE_YW_zluta.webp" alt="YUNG WONDERS" width="1274" height="589" decoding="async">
 			</a>
 		</div>
-		<details class="topnav-menu">
-			<summary>Menu</summary>
-			<div class="topnav-links">
-				<a href="index.html#portfolio">Portfolio</a>
-				<a href="index.html#sluzby">Služby</a>
-				<a href="index.html#kontakt">Kontakt</a>
-				<a href="yw.html#identita">YW Bio</a>
-				<a href="newalbum.html#album">YW Tape</a>
-			</div>
-		</details>
+		<div class="topnav-controls">
+			<button class="theme-toggle" type="button" aria-label="Přepnout motiv">
+				<svg class="theme-icon theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+				<svg class="theme-icon theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486A9 9 0 1 1 11.514 3.015a7 7 0 0 0 9.471 9.471Z"></path></svg>
+			</button>
+			<details class="topnav-menu">
+				<summary>Menu</summary>
+				<div class="topnav-links">
+					<a href="index.html#portfolio">Portfolio</a>
+					<a href="index.html#sluzby">Služby</a>
+					<a href="index.html#kontakt">Kontakt</a>
+					<a href="yw.html#identita">YW Bio</a>
+					<a href="newalbum.html#album">YW Tape</a>
+				</div>
+			</details>
+		</div>
 	</div>
 </nav>
 
@@ -59,54 +66,26 @@
 
 <footer>© 2026 YW TAPE by YUNG WONDERS</footer>
 
+<script src="site.js"></script>
 <script>
-	const topnavMenu = document.querySelector('.topnav-menu');
-
-	if (topnavMenu) {
-		let topnavCloseTimer;
-
-		topnavMenu.addEventListener('pointerenter', (event) => {
-			if (event.pointerType === 'mouse') {
-				clearTimeout(topnavCloseTimer);
-				topnavMenu.open = true;
-			}
-		});
-		topnavMenu.addEventListener('pointerleave', (event) => {
-			if (event.pointerType === 'mouse') {
-				topnavCloseTimer = setTimeout(() => {
-					topnavMenu.open = false;
-				}, 220);
-			}
-		});
-	}
-
-	document.querySelectorAll('a[href]').forEach((link) => {
-		link.addEventListener('click', (event) => {
-			const url = new URL(link.href, window.location.href);
-			const isInternal = url.origin === window.location.origin;
-			const isNewTab = link.target === '_blank';
-
-			if (isInternal && !isNewTab) {
-				return;
-			}
-		});
-	});
-
   const album = document.querySelector('.secret-album');
 
   if (album) {
-    const setAlbumShift = (event) => {
-      const x = (event.clientX / window.innerWidth - 0.5) * 18;
-      const y = (event.clientY / window.innerHeight - 0.5) * 18;
+    const setAlbumPointerPosition = (event) => {
+      const bounds = album.getBoundingClientRect();
+      const pointerX = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
+      const pointerY = Math.min(1, Math.max(0, (event.clientY - bounds.top) / bounds.height));
 
-      album.style.setProperty('--album-shift-x', `${x}px`);
-      album.style.setProperty('--album-shift-y', `${y}px`);
+      album.style.setProperty('--album-pointer-x', `${pointerX * 100}%`);
+      album.style.setProperty('--album-pointer-y', `${pointerY * 100}%`);
+      album.classList.add('is-illuminated');
     };
 
-    window.addEventListener('pointermove', setAlbumShift);
-    window.addEventListener('pointerleave', () => {
-      album.style.setProperty('--album-shift-x', '0px');
-      album.style.setProperty('--album-shift-y', '0px');
+    album.addEventListener('pointermove', setAlbumPointerPosition);
+    album.addEventListener('pointerleave', () => {
+      album.style.setProperty('--album-pointer-x', '50%');
+      album.style.setProperty('--album-pointer-y', '50%');
+      album.classList.remove('is-illuminated');
     });
   }
 </script>
