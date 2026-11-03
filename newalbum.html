@@ -43,22 +43,23 @@
 </nav>
 
 <main class="secret-album" id="album">
-	<div class="track-whispers" aria-hidden="true">
-		<span class="secret-track track-intro">INTRO</span>
-		<span class="secret-track track-mesto">MĚSTO UHLÍ A OCELI</span>
-		<span class="secret-track track-haluz">HALUZ</span>
-		<span class="secret-track track-marnice">MÁRNICE</span>
-		<span class="secret-track track-blantickova">BLANTIČKOVÁ STŘEDISKOVÁ</span>
-		<span class="secret-track track-lego">LE GO</span>
-		<span class="secret-track track-bez-hacku">BEZ HACKU</span>
-		<span class="secret-track track-chces">CHCES MUJ SVET</span>
-		<span class="secret-track track-vampir">VAMPÍR</span>
-		<span class="secret-track track-lyriceum">LYRICEUM</span>
-		<span class="secret-track track-traptastic">TRAPTASTIC 4</span>
-		<span class="secret-track track-big-foot">BIG FOOT</span>
-		<span class="secret-track track-sin-city">SIN CITY</span>
-		<span class="secret-track track-dirty-wonders">DIRTY WONDERS</span>
+	<div class="track-whispers" id="tracklist" aria-hidden="true">
+		<span class="secret-track track-intro"><span class="track-number">1</span><span class="track-title">INTRO</span><span class="track-meta">yung</span></span>
+		<span class="secret-track track-mesto"><span class="track-number">2</span><span class="track-title">MĚSTO UHLÍ A OCELI</span><span class="track-meta">yung, Gazz, Daniel Vladimír, Pepa Hromada</span></span>
+		<span class="secret-track track-haluz"><span class="track-number">3</span><span class="track-title">HALUZ</span><span class="track-meta">yung, Daniel Vladimír, Pepa Hromada</span></span>
+		<span class="secret-track track-marnice"><span class="track-number">4</span><span class="track-title">MÁRNICE</span><span class="track-meta">yung, Gazz</span></span>
+		<span class="secret-track track-blantickova"><span class="track-number">5</span><span class="track-title">BLANTIČKOVÁ STŘEDISKOVÁ</span><span class="track-meta">yung, Gazz, Pepa Hromada, Daniel Vladimír</span></span>
+		<span class="secret-track track-lego"><span class="track-number">6</span><span class="track-title">LE GO</span><span class="track-meta">yung, Pepa Hromada, Daniel Vladimír</span></span>
+		<span class="secret-track track-bez-hacku"><span class="track-number">7</span><span class="track-title">BEZ HACKU</span><span class="track-meta">yung, Pepa Hromada, Daniel Vladimír, Gazz</span></span>
+		<span class="secret-track track-chces"><span class="track-number">8</span><span class="track-title">CHCEŠ MŮJ SVĚT</span><span class="track-meta">yung</span></span>
+		<span class="secret-track track-vampir"><span class="track-number">9</span><span class="track-title">VAMPÍR</span><span class="track-meta">yung, Daniel Vladimír</span></span>
+		<span class="secret-track track-lyriceum"><span class="track-number">10</span><span class="track-title">LYRICEUM</span><span class="track-meta">yung, Gazz, Pepa Hromada</span></span>
+		<span class="secret-track track-traptastic"><span class="track-number">11</span><span class="track-title">TRAPTASTIC 4</span><span class="track-meta">yung, Pepa Hromada, Gazz</span></span>
+		<span class="secret-track track-big-foot"><span class="track-number">12</span><span class="track-title">BIGFOOT</span><span class="track-meta">yung, Pepa Hromada</span></span>
+		<span class="secret-track track-sin-city"><span class="track-number">13</span><span class="track-title">SIN CITY</span><span class="track-meta">yung, Gazz, Daniel Vladimír</span></span>
+		<span class="secret-track track-dirty-wonders"><span class="track-number">14</span><span class="track-title">DIRTY WONDERS</span><span class="track-meta">yung, Pepa Hromada, Gazz, Daniel Vladimír</span></span>
 	</div>
+	<button class="tracklist-toggle" type="button" aria-expanded="false" aria-controls="tracklist">Odhalit tracklist</button>
 	<figure class="secret-cover">
 		<a href="https://distrokid.com/hyperfollow/yungwondersandyung/yw-tape" target="_blank" rel="noopener noreferrer"><img src="COVER_YWTAPE.webp" alt="Obal alba YW TAPE" fetchpriority="high" decoding="async"></a>
 	</figure>
@@ -69,9 +70,23 @@
 <script src="site.js"></script>
 <script>
   const album = document.querySelector('.secret-album');
+  const tracklist = document.querySelector('.track-whispers');
+  const tracklistToggle = document.querySelector('.tracklist-toggle');
+
+  if (album && tracklist && tracklistToggle) {
+    tracklistToggle.addEventListener('click', () => {
+      const isExpanded = tracklistToggle.getAttribute('aria-expanded') === 'true';
+      tracklistToggle.setAttribute('aria-expanded', String(!isExpanded));
+      tracklistToggle.textContent = isExpanded ? 'Odhalit tracklist' : 'Skrýt tracklist';
+      tracklist.setAttribute('aria-hidden', String(isExpanded));
+      album.classList.toggle('is-tracks-revealed', !isExpanded);
+    });
+  }
 
   if (album) {
     const setAlbumPointerPosition = (event) => {
+      if (event.pointerType === 'touch') return;
+
       const bounds = album.getBoundingClientRect();
       const pointerX = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
       const pointerY = Math.min(1, Math.max(0, (event.clientY - bounds.top) / bounds.height));
