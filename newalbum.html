@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-theme-color-light="#f5f2e8" data-theme-color-dark="#0b0b0a">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Odhal skrytý tracklist alba YW TAPE od YUNG WONDERS.">
+<meta name="theme-color" content="#0b0b0a">
 <title>YW TAPE — YUNG WONDERS</title>
 <script src="theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bowlby+One+SC&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Lato:wght@400;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&amp;family=Bungee&amp;family=Bungee+Shade&amp;family=Caveat:wght@400;700&amp;family=Cinzel+Decorative:wght@700&amp;family=Cormorant+Garamond:ital,wght@0,400;1,400&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500;600;700&amp;family=Lato:wght@400;700&amp;family=Oswald:wght@400;500;600;700&amp;family=Permanent+Marker&amp;family=Press+Start+2P&amp;family=Rubik+Mono+One&amp;family=UnifrakturCook:wght@700&amp;display=swap" rel="stylesheet">
 <link rel="icon" type="image/webp" href="NEW_YW_logo_ALT2.webp">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="no-logo-background">
 
-<nav class="topnav">
+<nav class="topnav" data-print-url="newalbum.html">
 	<div class="wrap">
 		<div class="topnav-logos">
 			<a class="topnav-brand" href="index.html">
@@ -31,11 +33,17 @@
 			<details class="topnav-menu">
 				<summary>Menu</summary>
 				<div class="topnav-links">
-					<a href="index.html#portfolio">Portfolio</a>
-					<a href="index.html#sluzby">Služby</a>
-					<a href="index.html#kontakt">Kontakt</a>
-					<a href="yw.html#identita">YW Bio</a>
-					<a href="newalbum.html#album">YW Tape</a>
+					<div class="topnav-link-group">
+						<span class="topnav-link-heading">TATO STRÁNKA</span>
+						<a href="newalbum.html#album" class="active" aria-current="page">YW Tape</a>
+					</div>
+					<div class="topnav-link-group">
+						<span class="topnav-link-heading">DALŠÍ STRÁNKY</span>
+						<a href="index.html#header">YUNG</a>
+						<a href="yw.html#uvod">YUNG WONDERS</a>
+						<a href="odmocnina16.html#odmocnina">ODMOCNINA16</a>
+						<a href="upcoming.html#projekty">Nadcházející vydání</a>
+					</div>
 				</div>
 			</details>
 		</div>
@@ -43,6 +51,7 @@
 </nav>
 
 <main class="secret-album" id="album">
+	<h1 class="visually-hidden">YW TAPE — YUNG WONDERS</h1>
 	<div class="track-whispers" id="tracklist" aria-hidden="true">
 		<span class="secret-track track-intro"><span class="track-number">1</span><span class="track-title">INTRO</span><span class="track-meta">yung</span></span>
 		<span class="secret-track track-mesto"><span class="track-number">2</span><span class="track-title">MĚSTO UHLÍ A OCELI</span><span class="track-meta">yung, Gazz, Daniel Vladimír, Pepa Hromada</span></span>
@@ -68,42 +77,6 @@
 <footer>© 2026 YW TAPE by YUNG WONDERS</footer>
 
 <script src="site.js"></script>
-<script>
-  const album = document.querySelector('.secret-album');
-  const tracklist = document.querySelector('.track-whispers');
-  const tracklistToggle = document.querySelector('.tracklist-toggle');
-
-  if (album && tracklist && tracklistToggle) {
-    tracklistToggle.addEventListener('click', () => {
-      const isExpanded = tracklistToggle.getAttribute('aria-expanded') === 'true';
-      tracklistToggle.setAttribute('aria-expanded', String(!isExpanded));
-      tracklistToggle.textContent = isExpanded ? 'Odhalit tracklist' : 'Skrýt tracklist';
-      tracklist.setAttribute('aria-hidden', String(isExpanded));
-      album.classList.toggle('is-tracks-revealed', !isExpanded);
-    });
-  }
-
-  if (album) {
-    const setAlbumPointerPosition = (event) => {
-      if (event.pointerType === 'touch') return;
-
-      const bounds = album.getBoundingClientRect();
-      const pointerX = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
-      const pointerY = Math.min(1, Math.max(0, (event.clientY - bounds.top) / bounds.height));
-
-      album.style.setProperty('--album-pointer-x', `${pointerX * 100}%`);
-      album.style.setProperty('--album-pointer-y', `${pointerY * 100}%`);
-      album.classList.add('is-illuminated');
-    };
-
-    album.addEventListener('pointermove', setAlbumPointerPosition);
-    album.addEventListener('pointerleave', () => {
-      album.style.setProperty('--album-pointer-x', '50%');
-      album.style.setProperty('--album-pointer-y', '50%');
-      album.classList.remove('is-illuminated');
-    });
-  }
-</script>
 
 </body>
 </html>

@@ -3,6 +3,7 @@ const themePreferenceKey = themeSettings.themeStorageKey || 'site-theme';
 const defaultTheme = themeSettings.themeDefault;
 const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
 let savedTheme = null;
+let themeToggle = null;
 
 try {
   const storedTheme = localStorage.getItem(themePreferenceKey);
@@ -21,22 +22,21 @@ const applyTheme = (theme) => {
     themeColor.content = themeColorValue;
   }
 
-  const toggle = document.querySelector('.theme-toggle');
-  if (toggle) {
+  if (themeToggle) {
     const targetTheme = theme === 'dark' ? 'light' : 'dark';
-    toggle.setAttribute('aria-label', `Přepnout na ${targetTheme === 'light' ? 'světlý' : 'tmavý'} režim`);
-    toggle.title = `Přepnout na ${targetTheme === 'light' ? 'světlý' : 'tmavý'} režim`;
+    themeToggle.setAttribute('aria-label', `Přepnout na ${targetTheme === 'light' ? 'světlý' : 'tmavý'} režim`);
+    themeToggle.title = `Přepnout na ${targetTheme === 'light' ? 'světlý' : 'tmavý'} režim`;
   }
 };
 
 applyTheme(savedTheme || defaultTheme || (systemTheme.matches ? 'light' : 'dark'));
 
 document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.querySelector('.theme-toggle');
-  if (!toggle) return;
+  themeToggle = document.querySelector('.theme-toggle');
+  if (!themeToggle) return;
 
   applyTheme(document.documentElement.dataset.theme);
-  toggle.addEventListener('click', () => {
+  themeToggle.addEventListener('click', () => {
     const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     savedTheme = theme;
     applyTheme(theme);
